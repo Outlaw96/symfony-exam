@@ -9,13 +9,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Overblog\GraphQLBundle\Annotation as GQL;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
-#[GQL\Type(name: 'Book')]
+#[GQL\Type(name: "Book")]
 class Book
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[GQL\Field(type: 'ID')]
+    #[GQL\Field(type: "ID")]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]

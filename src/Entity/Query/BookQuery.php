@@ -17,7 +17,7 @@ class BookQuery
     /**
      * @return Book[]
      */
-    #[GQL\Query(type: "[Book]", name: "Books")]
+    #[GQL\Query(type: '[Book]', name: 'Books')]
     public function BookList(): array
     {
         return $this->bookRepository->findBy([]);

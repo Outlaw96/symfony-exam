@@ -39,6 +39,37 @@ class AuthorRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByAuthor(?string $firstname, ?string $lastname): array
+    {
+        $queryBuilder = $this->createQueryBuilder('a')
+            ->select('a')
+            ->leftJoin('a.books', 'b')
+            ->addSelect('b', 'b.id, count(b)');
+
+        $firstnameFilled = false;
+        if (null !== $firstname) {
+            $queryBuilder->where('a.firstname = :firstname')
+                ->setParameter('firstname', $firstname);
+
+            $firstnameFilled = true;
+        }
+
+        if (null !== $lastname) {
+            if (!$firstnameFilled) {
+                $queryBuilder->where('a.lastname = :lastname')
+                    ->setParameter('lastname', $lastname);
+            } else {
+                $queryBuilder->andWhere('a.lastname = :lastname')
+                    ->setParameter('lastname', $lastname);
+            }
+        }
+
+        return $queryBuilder
+            ->orderBy('a.id', 'ASC')
+            ->groupBy('a.id')
+            ->getQuery()
+            ->getArrayResult();
+    }
 //    /**
 //     * @return Author[] Returns an array of Author objects
 //     */

@@ -13,7 +13,6 @@ class File
 class Directory
 {
     /**
-     * @param string $name
      * @param (File|Directory)[] $children
      */
     public function __construct(
@@ -30,27 +29,31 @@ class VisitFiles
      *
      * Return a list of every files filtered by given function.
      *
-     * @param TODO $root
-     * @param TODO $filterFn
-     *
-     * @return TODO
+     * @param array $root list of files or sub directories
      */
-    public function visitFiles($root, callable $filterFn): void
+    public function visitFiles(array $root, callable $filterFn): array
     {
-        // @TODO
+        return array_filter($root, fn ($k) => $filterFn($k));
     }
 
     public function usageExemple(): void
     {
         $this->visitFiles(
-            null, // @TODO use a concrete root exemple
+            [
+                'bin/',
+                'etc/',
+                'usr/',
+                'opt/',
+                'var/',
+            ],
             function ($file) {
                 $name = $file->name;
-                for ($i = 0; $i < floor(strlen($name)); $i++) {
+                for ($i = 0; $i < floor(strlen($name)); ++$i) {
                     if ($name[$i] != $name[strlen($name) - $i - 1]) {
                         return false;
                     }
                 }
+
                 return true;
             }
         );
