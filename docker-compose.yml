@@ -15,8 +15,8 @@ services:
         published: 8080
   exam_db:
     image: mariadb
-    depends_on:
-      - symfony
+#    depends_on:
+#      - symfony
     ports:
       - target: 3306
         published: 3307
