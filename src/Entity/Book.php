@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\BookRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Overblog\GraphQLBundle\Annotation as GQL;
@@ -24,6 +25,12 @@ class Book
     #[ORM\Column(type: Types::TEXT)]
     #[GQL\Field]
     private ?string $resume = null;
+
+    /**
+     * @var ArrayCollection<Book>
+     */
+    #[ORM\ManyToOne(targetEntity: Author::class, inversedBy: 'books')]
+    private Author $author;
 
     public function getId(): ?int
     {
@@ -50,6 +57,18 @@ class Book
     public function setResume(string $resume): self
     {
         $this->resume = $resume;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?Author
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Author $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }
