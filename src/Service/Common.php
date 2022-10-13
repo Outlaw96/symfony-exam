@@ -5,12 +5,14 @@ namespace App\Service;
 class Common
 {
     /**
-     * ???
+     * Copy the content of array parameter and return the copied array
+     * @param array<int | float | string > $array
+     * @return array<int | float | string >
      */
     public static function boo(array $array): array
     {
         $result = [];
-        array_walk_recursive($array, function ($a) use (&$result) {
+        array_walk_recursive($array, function ($a) use (&$result): void {
             $result[] = $a;
         });
 
@@ -18,7 +20,10 @@ class Common
     }
 
     /**
-     * ???
+     * Add to array1 new entry with array2['k'] value as index and array2['v'] as value
+     * @param array<int | float | string > $array1
+     * @param array<int | float | string > $array2
+     * @return array<int | float | string >
      */
     public static function foo(array $array1, array $array2): array
     {
@@ -26,7 +31,10 @@ class Common
     }
 
     /**
-     * ???
+     * Retourne le nombre d'index de l'array1 n'étant pas des valeurs dans l'array2 :D
+     * @param array<int | float | string > $array1
+     * @param array<int | float | string > $array2
+     * @return bool
      */
     public static function bar(array $array1, array $array2): bool
     {
